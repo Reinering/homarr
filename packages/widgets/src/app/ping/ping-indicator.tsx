@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IconCheck, IconX } from "@tabler/icons-react";
+import { Anchor } from '@mantine/core';
 
 import type { RouterOutputs } from "@homarr/api";
 import { clientApi } from "@homarr/api/client";
@@ -35,10 +36,13 @@ export const PingIndicator = ({ href }: PingIndicatorProps) => {
   const isError = "error" in pingResult || pingResult.statusCode >= 500;
 
   return (
-    <PingDot
-      icon={isError ? IconX : IconCheck}
-      color={isError ? "red" : "green"}
-      tooltip={"statusCode" in pingResult ? pingResult.statusCode.toString() : pingResult.error}
-    />
+    <Anchor onClick={() => {window.open(href, "_blank");}}>
+      <PingDot
+          icon={isError ? IconX : IconCheck}
+          color={isError ? "red" : "green"}
+          tooltip={"statusCode" in pingResult ? pingResult.statusCode.toString() : pingResult.error}
+      />
+    </Anchor>
+
   );
 };
